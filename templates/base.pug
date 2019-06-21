@@ -9,12 +9,41 @@ html
         meta(name='viewport', content='width=device-width, initial-scale=1')
         link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css')
         link(rel='stylesheet' href='{% sass_src "sass/base.sass" %}' type="text/css")
+        block styles
     body
         section.hero.is-info.is-bold.logo-header
             .hero-body
                 .container
                     img.title.logo(src="{% static 'imgs/logo.png' %}")
+                    hr
+                    nav.level.is-mobile
+                        .level-item.has-text-centered
+                            div
+                                a
+                                    span.icon.is-medium
+                                        i.fas.fa-2x.fa-home
+                                    p.subtitle Home
+                        .level-item.has-text-centered
+                            div
+                                a.link
+                                    span.icon.is-medium
+                                        i.fas.fa-2x.fa-pills
+                                    p.subtitle Medicamentos
+                        .level-item.has-text-centered
+                            div
+                                a.link
+                                    span.icon.is-medium
+                                        i.fas.fa-2x.fa-file-medical-alt
+                                    p.subtitle Medições
+                        .level-item.has-text-centered
+                            div
+                                a.link
+                                    span.icon.is-medium
+                                        i.fas.fa-2x.fa-utensils
+                                    p.subtitle Alimentação
+                        
+
         block content
         footer
             script(defer='', src='https://use.fontawesome.com/releases/v5.3.1/js/all.js')
-
+            script(src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js')

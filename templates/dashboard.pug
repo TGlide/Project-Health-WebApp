@@ -1,6 +1,63 @@
 extends base
+{% load sass_tags %}
+{% load static %}
+
+block styles
+    link(rel='stylesheet' href='{% sass_src "sass/dashboard.sass" %}' type="text/css")
 
 block content
     section.section
         .container
-            h1.title olha que dashboard uau
+            .tile.is-ancestor
+                .tile.is-vertical.is-2
+                    .tile.is-parent
+                        article.tile.is-child.box.notification.is-info
+                            p.title Sra. Edna
+                            p.subtitle 86 anos
+                            figure.image.is-1by1
+                                img.is-rounded(src="{% static 'imgs/avatar-w-1.png' %}")
+                .tile.is-parent
+                    article.tile.is-child.box.is-success
+                        .content
+                            p.title Próximos remédios
+                            .content
+
+                                article.media
+                                    .media-left.has-text-centered.has-text-info
+                                        span.icon.is-medium
+                                            i.fas.fa-2x.fa-pills
+                                        p.subtitle 05:00
+                                    .media-content
+                                        .content
+                                            p 
+                                                strong Puran T4
+                                                br 
+                                                |   37,5 mcg
+                                    .media-right.has-text-centered.has-text-success
+                                        span.icon.is-medium
+                                            i.fas.fa-2x.fa-check-circle
+                                
+                                hr
+
+                                article.media
+                                    .media-left.has-text-centered.has-text-info
+                                        span.icon.is-medium
+                                            i.fas.fa-2x.fa-pills
+                                        p.subtitle 13:30
+                                    .media-content
+                                        .content
+                                            p 
+                                                strong Viagra
+                                                br 
+                                                |   Bastante
+                                    .media-right.has-text-centered
+                                        span.icon.is-medium
+                                            i.fas.fa-2x.fa-clock
+
+                .tile.is-parent
+                    article.tile.is-child.box.is-success
+                        .content
+                            p.title Próximas alimentações
+                            .content
+                                // Content
+
