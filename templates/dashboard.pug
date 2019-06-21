@@ -8,14 +8,17 @@ block styles
 block content
     section.section
         .container
+            p.title Bom dia, Thomas!
             .tile.is-ancestor
                 .tile.is-vertical.is-2
+                    //- Paciente
                     .tile.is-parent
                         article.tile.is-child.box.notification.is-info
                             p.title Sra. Edna
                             p.subtitle 86 anos
                             figure.image.is-1by1
                                 img.is-rounded(src="{% static 'imgs/avatar-w-1.png' %}")
+                //- Medicamentos 
                 .tile.is-parent
                     article.tile.is-child.box.is-success
                         .content
@@ -53,11 +56,41 @@ block content
                                     .media-right.has-text-centered
                                         span.icon.is-medium
                                             i.fas.fa-2x.fa-clock
-
+                //- Alimentação
                 .tile.is-parent
                     article.tile.is-child.box.is-success
                         .content
                             p.title Próximas alimentações
                             .content
-                                // Content
+                                article.media
+                                    .media-left.has-text-centered.has-text-info
+                                        span.icon.is-medium
+                                            i.fas.fa-2x.fa-utensils
+                                        p.subtitle 08:00
+                                    .media-content
+                                        .content
+                                            p 
+                                                strong Café da Manhã
+                                                br 
+                                                |   Frutas e Carboidratos
+                                    .media-right.has-text-centered.has-text-success
+                                        span.icon.is-medium
+                                            i.fas.fa-2x.fa-check-circle
+                                
+                                hr
+
+                                article.media
+                                    .media-left.has-text-centered.has-text-info
+                                        span.icon.is-medium
+                                            i.fas.fa-2x.fa-utensils
+                                        p.subtitle 13:00
+                                    .media-content
+                                        .content
+                                            p 
+                                                strong Almoço
+                                                br 
+                                                |   O vizinho do lado se ele não calar a boca
+                                    .media-right.has-text-centered.has-text-warning
+                                        span.icon.is-medium
+                                            i.fas.fa-2x.fa-exclamation-circle
 
