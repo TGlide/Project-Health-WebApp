@@ -9,6 +9,8 @@ html
         meta(name='viewport', content='width=device-width, initial-scale=1')
         link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css')
         link(rel='stylesheet' href='{% sass_src "sass/base.sass" %}' type="text/css")
+        link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.9.0/css/all.css', integrity='sha384-i1LQnF23gykqWXg6jxC2ZbCbUMxyw5gLZY6UiUS98LYV5unm8GWmfkIS6jqJfb4E', crossorigin='anonymous')
+
         block styles
     body.has-navbar-fixed-top
         nav.navbar.has-shadow.is-spaced.is-info.is-fixed-top(role='navigation', aria-label='main navigation')
@@ -81,9 +83,17 @@ html
 
         block content
         footer.footer
+            .content.has-text-centered
+                p
+                    strong Project Health
+                    |  feito por alunos lindos demais.
+                span.icon.is-medium
+                    i.fas.fa-2x.fa-hand-point-right
+                span.icon.is-medium
+                    i.far.fa-2x.fa-circle
 
             //- Scripts
             script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js")
-            script(defer='', src='https://use.fontawesome.com/releases/v5.3.1/js/all.js')
+            //- script(defer='', src='https://use.fontawesome.com/releases/v5.3.1/js/all.js')
             script(src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js')
             block scripts
