@@ -6,91 +6,115 @@ block styles
     link(rel='stylesheet' href='{% sass_src "sass/dashboard.sass" %}' type="text/css")
 
 block content
-    section.section
+    section.section(style='margin:15px')
         .container
             p.title Bom dia, Thomas!
             .tile.is-ancestor
-                .tile.is-vertical.is-2
-                    //- Paciente
-                    .tile.is-parent
-                        article.tile.is-child.box.notification.is-info
-                            p.title Sra. Edna
-                            p.subtitle 86 anos
-                            figure.image.is-1by1
-                                img.is-rounded(src="{% static 'imgs/avatar-w-1.png' %}")
+                //- Paciente
+                .tile.is-parent.is-3
+                    article.tile.is-child.box.notification.is-info
+                        p.title Sra. Edna
+                        p.subtitle 86 anos
+                        figure.image.is-1by1
+                            img.is-rounded(src="{% static 'imgs/avatar-w-1.png' %}")
                 //- Medicamentos 
                 .tile.is-parent
                     article.tile.is-child.box.is-success
                         .content
-                            p.title Próximos remédios
-                            .content
+                            div.title.is-flex.v-center
+                                span.icon.is-large.has-text-info
+                                    i.fas.fa-pills
+                                p.subtitle.is-inline.card-title 
+                                    strong &nbspMedicamentos
+                            article.media
+                                .media-left.has-text-centered.has-text-info
+                                    div.pill-avatar
+                                        figure.image.is-32x32.is-marginless
+                                            img(src="{% static 'imgs/pill.png' %}", alt="", srcset="")
+                                .media-content
+                                    .content
+                                        p 
+                                            strong Puran T4
+                                            br 
+                                            |   37,5 mcg
+                                .media-right.has-text-centered.has-text-success
+                                    span.icon.is-medium
+                                        i.fas.fa-2x.fa-check-circle
+                                    p.subtitle 05:00
+                            
+                            hr
 
-                                article.media
-                                    .media-left.has-text-centered.has-text-info
-                                        span.icon.is-medium
-                                            i.fas.fa-2x.fa-pills
-                                        p.subtitle 05:00
-                                    .media-content
-                                        .content
-                                            p 
-                                                strong Puran T4
-                                                br 
-                                                |   37,5 mcg
-                                    .media-right.has-text-centered.has-text-success
-                                        span.icon.is-medium
-                                            i.fas.fa-2x.fa-check-circle
-                                
-                                hr
-
-                                article.media
-                                    .media-left.has-text-centered.has-text-info
-                                        span.icon.is-medium
-                                            i.fas.fa-2x.fa-pills
-                                        p.subtitle 13:30
-                                    .media-content
-                                        .content
-                                            p 
-                                                strong Viagra
-                                                br 
-                                                |   Bastante
-                                    .media-right.has-text-centered
-                                        span.icon.is-medium
-                                            i.fas.fa-2x.fa-clock
+                            article.media
+                                .media-left.has-text-centered.has-text-info
+                                    div.pill-avatar
+                                        figure.image.is-32x32.is-marginless
+                                            img(src="{% static 'imgs/pill.png' %}", alt="", srcset="")
+                                .media-content
+                                    .content
+                                        p 
+                                            strong Viagra
+                                            br 
+                                            |   Bastante
+                                .media-right.has-text-centered
+                                    span.icon.is-medium
+                                        i.fas.fa-2x.fa-clock
+                                    p.subtitle 15:00
                 //- Alimentação
                 .tile.is-parent
                     article.tile.is-child.box.is-success
                         .content
-                            p.title Próximas alimentações
-                            .content
-                                article.media
-                                    .media-left.has-text-centered.has-text-info
-                                        span.icon.is-medium
-                                            i.fas.fa-2x.fa-utensils
-                                        p.subtitle 08:00
-                                    .media-content
-                                        .content
-                                            p 
-                                                strong Café da Manhã
-                                                br 
-                                                |   Frutas e Carboidratos
-                                    .media-right.has-text-centered.has-text-success
-                                        span.icon.is-medium
-                                            i.fas.fa-2x.fa-check-circle
-                                
-                                hr
+                            div.title.is-flex.v-center
+                                span.icon.is-large.has-text-success
+                                    i.fas.fa-utensils
+                                p.subtitle.is-inline.card-title 
+                                    strong &nbspAlimentação
+                            article.media
+                                .media-left.has-text-centered.has-text-info
+                                    span.icon.is-medium
+                                        i.fas.fa-2x.fa-utensils
+                                .media-content
+                                    .content
+                                        p 
+                                            strong Café da Manhã
+                                            br 
+                                            |   Frutas e Carboidratos
+                                .media-right.has-text-centered.has-text-success
+                                    span.icon.is-medium
+                                        i.fas.fa-2x.fa-check-circle
+                                    p.subtitle 08:00
+                            
+                            hr
 
-                                article.media
-                                    .media-left.has-text-centered.has-text-info
-                                        span.icon.is-medium
-                                            i.fas.fa-2x.fa-utensils
-                                        p.subtitle 13:00
-                                    .media-content
-                                        .content
-                                            p 
-                                                strong Almoço
-                                                br 
-                                                |   O vizinho do lado se ele não calar a boca
-                                    .media-right.has-text-centered.has-text-warning
-                                        span.icon.is-medium
-                                            i.fas.fa-2x.fa-exclamation-circle
+                            article.media
+                                .media-left.has-text-centered.has-text-info
+                                    span.icon.is-medium
+                                        i.fas.fa-2x.fa-utensils
+                                .media-content
+                                    .content
+                                        p 
+                                            strong Almoço
+                                            br 
+                                            |   O vizinho do lado se ele não calar a boca
+                                .media-right.has-text-centered.has-text-warning
+                                    span.icon.is-medium
+                                        i.fas.fa-2x.fa-exclamation-circle
+                                    p.subtitle 13:30
+            .tile.is-ancestor
+                //- Medições
+                .tile.is-parent.is-6
+                    article.tile.is-child.box
+                        .content
+                            div.title.is-flex.v-center
+                                span.icon.is-large.has-text-danger
+                                    i.fas.fa-heartbeat
+                                p.subtitle.is-inline.card-title  
+                                    strong &nbspMedições
+                            div#medChartContainer
+                                canvas#medChart
+                //- Nada ainda
+                .tile.is-parent
+                    article.tile.is-child.box
+                        p I'm lonely
 
+block scripts
+    script(src="{% static 'js/dashboard.js' %}")

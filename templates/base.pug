@@ -10,16 +10,52 @@ html
         link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css')
         link(rel='stylesheet' href='{% sass_src "sass/base.sass" %}' type="text/css")
         block styles
-    body
-        section.hero.is-info.is-bold.logo-header
-            .hero-body
-                .container
+    body.has-navbar-fixed-top
+        nav.navbar.has-shadow.is-spaced.is-info.is-fixed-top(role='navigation', aria-label='main navigation')
+            .container
+                .navbar-brand
+                    a.navbar-item(href='#' )
+                        img(src="{% static 'imgs/logo_altw.png' %}" style="max-height:40px")
+                    a.navbar-burger.burger(role='button', aria-label='menu', aria-expanded='false', data-target='navbarBasicExample')
+                        span(aria-hidden='true')
+                        span(aria-hidden='true')
+                        span(aria-hidden='true')
+                .navbar-menu
+                    .navbar-start
+                        a.navbar-item
+                            span.icon.is-large
+                                i.fas.fa-lg.fa-pills 
+                            |   Medicamentos
+                        a.navbar-item
+                            span.icon.is-large
+                                i.fas.fa-lg.fa-utensils 
+                            |   Alimentação
+                        a.navbar-item
+                            span.icon.is-large
+                                i.fas.fa-lg.fa-file-medical-alt
+                            |   Medições
+                        .navbar-item.has-dropdown.is-hoverable
+                            a.navbar-link
+                                //- span.icon.is-large
+                                //-     i.fas.fa-lg.fa-ellipsis-h
+                                |   Mais
+                            .navbar-dropdown
+                                a.navbar-item Eu
+                                a.navbar-item Quero
+                                a.navbar-item Ser
+                                hr.navbar-divider
+                                a.navbar-item Saudável
+
+
+        //- Navbar old 
+            section.hero.is-info.is-bold.logo-header
+                .hero-body
                     img.title.logo(src="{% static 'imgs/logo.png' %}")
                     hr
-                    nav.level.is-mobile
+                    nav.level.is-mobile.is-half
                         .level-item.has-text-centered
                             div
-                                a
+                                a.link
                                     span.icon.is-medium
                                         i.fas.fa-2x.fa-home
                                     p.subtitle Home
@@ -41,9 +77,13 @@ html
                                     span.icon.is-medium
                                         i.fas.fa-2x.fa-utensils
                                     p.subtitle Alimentação
-                        
+                    
 
         block content
-        footer
+        footer.footer
+
+            //- Scripts
+            script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js")
             script(defer='', src='https://use.fontawesome.com/releases/v5.3.1/js/all.js')
             script(src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js')
+            block scripts
