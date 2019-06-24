@@ -26,45 +26,37 @@ block content
                                     i.fas.fa-pills
                                 p.subtitle.is-inline.card-title 
                                     strong &nbspMedicamentos
-                            article.media
-                                .media-left.has-text-centered.has-text-info
-                                    div.pill-avatar
-                                        figure.image.is-32x32.is-marginless
-                                            img(src="{% static 'imgs/pill.png' %}", alt="", srcset="")
-                                .media-content
-                                    .content
-                                        p 
-                                            strong Puran T4
-                                            br 
-                                            |   37,5 mcg
-                                .media-right.has-text-centered.has-text-success
-                                    span.icon.is-medium
-                                        i.fas.fa-2x.fa-check-circle
-                                    p.subtitle 05:00
                             
-                            hr
-
-                            article.media
-                                .media-left.has-text-centered.has-text-info
-                                    div.pill-avatar
-                                        figure.image.is-32x32.is-marginless
-                                            img(src="{% static 'imgs/pill.png' %}", alt="", srcset="")
-                                .media-content
-                                    .content
-                                        p 
-                                            strong Viagra
-                                            br 
-                                            |   Bastante
-                                .media-right.has-text-centered
-                                    span.icon.is-medium
-                                        i.fas.fa-2x.fa-clock
-                                    p.subtitle 15:00
+                            for med in meds
+                                article.media
+                                    .media-left.has-text-centered.has-text-info
+                                        div.pill-avatar
+                                            figure.image.is-32x32.is-marginless
+                                                img(src="{% static 'imgs/pill.png' %}", alt="", srcset="")
+                                    .media-content
+                                        .content
+                                            p 
+                                                strong=med.name 
+                                                br 
+                                                | {{ med.dose }} 
+                                    if med.taken
+                                        .media-right.has-text-centered.has-text-success
+                                            span.icon.is-medium
+                                                i.fas.fa-2x.fa-check-circle
+                                            p.subtitle=med.time_str
+                                    else 
+                                        .media-right.has-text-centered.has-text-danger
+                                            span.icon.is-medium
+                                                i.fas.fa-2x.fa-exclamation-circle
+                                            p.subtitle=med.time_str
+                                if not forloop.last
+                                    hr
                 //- Alimentação
                 .tile.is-parent
                     article.tile.is-child.box.is-success
                         .content
                             div.title.is-flex.v-center
-                                span.icon.is-large.has-text-success
+                                span.icon.is-large.has-text-primary
                                     i.fas.fa-utensils
                                 p.subtitle.is-inline.card-title 
                                     strong &nbspAlimentação
@@ -95,7 +87,7 @@ block content
                                             strong Almoço
                                             br 
                                             |   O vizinho do lado se ele não calar a boca
-                                .media-right.has-text-centered.has-text-warning
+                                .media-right.has-text-centered.has-text-danger
                                     span.icon.is-medium
                                         i.fas.fa-2x.fa-exclamation-circle
                                     p.subtitle 13:30

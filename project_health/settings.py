@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sass_processor',
     'users.apps.UsersConfig',
-    'dashboard.apps.DashboardConfig'
+    'dashboard.apps.DashboardConfig',
+    'medications.apps.MedicationsConfig'
 
 ]
 
@@ -125,6 +126,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+TIME_INPUT_FORMATS = ["%H:%M"]
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 STATICFILES_FINDERS = [
@@ -141,3 +144,5 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
     # os.path.join(BASE_DIR, 'staticfiles'),
 )
+
+# Additonal Settings
