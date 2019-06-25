@@ -1,3 +1,13 @@
+// Heights for scrollbar 
+$(document).ready(function (){
+    $('#meds').height(0);
+    var parentHeight = $('#profilePic').height();
+    var medsTitleHeight = $('#medsTitle').height();
+    $('#meds').height(parentHeight - medsTitleHeight - 15);
+})
+
+
+// Charts 
 var ctx = document.getElementById('medChartBPM').getContext('2d');
 ctx.height = 100;
 var chart = new Chart(ctx, {

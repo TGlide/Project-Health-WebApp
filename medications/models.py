@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 class Medication(models.Model):
     patient = models.ForeignKey("users.Patient", on_delete=models.CASCADE)
@@ -13,3 +14,6 @@ class Medication(models.Model):
     
     def time_str(self):
         return str(self.time)[:-3]
+    
+    def past_time(self):
+        return datetime.now().time() > self.time
