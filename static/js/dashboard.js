@@ -49,7 +49,7 @@ var chart = new Chart(ctx, {
         {
             label: 'Pressão Diastólica',
             yAxisID: 'D',
-            backgroundColor: 'rgba(255, 99, 132, 0.0)',
+            backgroundColor: 'rgba(0, 99, 255, 0.0)',
             borderColor: '#0288D1',
             data: [72, 65, 72, 60, 75, 80, 70, 80]
         }

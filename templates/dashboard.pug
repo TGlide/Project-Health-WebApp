@@ -26,30 +26,34 @@ block content
                                     i.fas.fa-pills
                                 p.subtitle.is-inline.card-title 
                                     strong &nbspMedicamentos
-                            for med in meds
-                                article.media.is-flex.v-center
-                                    .media-left.has-text-centered.has-text-info
-                                        div.pill-avatar
-                                            figure.image.is-32x32.is-marginless
-                                                img(src="{% static 'imgs/pill.png' %}", alt="", srcset="")
-                                    .media-content
-                                        .content
-                                            p 
-                                                strong=med.name 
-                                                br 
-                                                | {{ med.dose }} 
-                                    if med.taken
-                                        .media-right.has-text-centered.has-text-success
-                                            span.icon.is-medium
-                                                i.fas.fa-2x.fa-check-circle
-                                            p.subtitle=med.time_str
-                                    else 
-                                        .media-right.has-text-centered.has-text-danger
-                                            span.icon.is-medium
-                                                i.fas.fa-2x.fa-exclamation-circle
-                                            p.subtitle=med.time_str
-                                if not forloop.last
-                                    hr
+                            if meds
+                                for med in meds
+                                    article.media.is-flex.v-center
+                                        .media-left.has-text-centered.has-text-info
+                                            div.pill-avatar
+                                                figure.image.is-32x32.is-marginless
+                                                    img(src="{% static 'imgs/pill.png' %}", alt="", srcset="")
+                                        .media-content
+                                            .content
+                                                p 
+                                                    strong=med.name 
+                                                    br 
+                                                    | {{ med.dose }} 
+                                        if med.taken
+                                            .media-right.has-text-centered.has-text-success
+                                                span.icon.is-medium
+                                                    i.fas.fa-2x.fa-check-circle
+                                                p.subtitle=med.time_str
+                                        else 
+                                            .media-right.has-text-centered.has-text-danger
+                                                span.icon.is-medium
+                                                    i.fas.fa-2x.fa-exclamation-circle
+                                                p.subtitle=med.time_str
+                                    if not forloop.last
+                                        hr
+                            else
+                                .has-text-centered
+                                    p.subtitle Não há medicamentos registrados.
                 //- Alimentação
                 .tile.is-parent
                     article.tile.is-child.box.is-success
