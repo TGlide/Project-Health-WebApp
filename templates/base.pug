@@ -7,9 +7,9 @@ html
         meta(charset='utf-8')
         title Project Health
         meta(name='viewport', content='width=device-width, initial-scale=1')
-        link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css')
         link(rel='stylesheet' href='{% sass_src "sass/base.sass" %}' type="text/css")
-        link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.9.0/css/all.css', integrity='sha384-i1LQnF23gykqWXg6jxC2ZbCbUMxyw5gLZY6UiUS98LYV5unm8GWmfkIS6jqJfb4E', crossorigin='anonymous')
+        link(rel='stylesheet', href="{% static 'vendor/bulma.min.css' %}")
+        link(rel='stylesheet' href="{% static 'vendor/fa/css/all.css' %}")
 
         block styles
     body.has-navbar-fixed-top
@@ -94,7 +94,6 @@ html
 
             //- Scripts
             script(src="{% static 'vendor/jquery.js' %}")
-            script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js")
-            //- script(defer='', src='https://use.fontawesome.com/releases/v5.3.1/js/all.js')
-            script(src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js')
+            script(src="{% static 'vendor/Chart.bundle.js' %}")
+            //- script(src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js')
             block scripts
