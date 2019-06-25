@@ -16,7 +16,7 @@ html
         nav.navbar.has-shadow.is-spaced.is-info.is-fixed-top(role='navigation', aria-label='main navigation')
             .container
                 .navbar-brand
-                    a.navbar-item(href='#' )
+                    a.navbar-item(href='dashboard' )
                         img(src="{% static 'imgs/logo_altw.png' %}" style="max-height:40px")
                     a.navbar-burger.burger(role='button', aria-label='menu', aria-expanded='false', data-target='navbarBasicExample')
                         span(aria-hidden='true')
@@ -24,7 +24,7 @@ html
                         span(aria-hidden='true')
                 .navbar-menu
                     .navbar-start
-                        a.navbar-item
+                        a.navbar-item(href='meds')
                             span.icon.is-large
                                 i.fas.fa-lg.fa-pills 
                             |   Medicamentos
