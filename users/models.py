@@ -8,6 +8,7 @@ class Caregiver(models.Model):
 
     def __str__(self):
         return "Caregiver {}".format(self.name)
+    
 
 
 class Patient(models.Model):
