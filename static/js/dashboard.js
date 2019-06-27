@@ -4,6 +4,11 @@ $(document).ready(function (){
     var parentHeight = $('#profilePic').height();
     var medsTitleHeight = $('#medsTitle').height();
     $('#meds').height(parentHeight - medsTitleHeight - 15);
+
+    $('#foods').height(0);
+    var parentHeight = $('#profilePic').height();
+    var foodsTitleHeight = $('#foodsTitle').height();
+    $('#foods').height(parentHeight - foodsTitleHeight - 15);
 })
 
 

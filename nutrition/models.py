@@ -6,9 +6,10 @@ class Nutrition(models.Model):
     food_name = models.CharField(max_length=32)
     time = models.TimeField()
     eaten = models.BooleanField()
-    breakfast = models.BooleanField()
-    lunch = models.BooleanField()
-    dinner = models.BooleanField()
+    icon = models.CharField(max_length=16)  # Breakfast, lunch or dinner  
+    # breakfast = models.BooleanField()
+    # lunch = models.BooleanField()
+    # dinner = models.BooleanField()
 
 
     def __str__(self):
