@@ -70,45 +70,67 @@ block content
                     
                     //- Alimentação
                     .tile.is-parent
-                        article.tile.is-child.box.is-success
-                            .content
-                                div.title.is-flex.v-center
-                                    span.icon.is-large.has-text-primary
-                                        i.fas.fa-utensils
-                                    p.subtitle.is-inline.card-title 
-                                        strong &nbspAlimentação
-                                article.media.is-flex.v-center
-                                    .media-left.has-text-centered
-                                        span.icon.is-medium
-                                            i.fas.fa-2x.fa-egg
-                                    .media-content
-                                        .content
-                                            p 
-                                                strong Café da Manhã
-                                                br 
-                                                |   Frutas e Carboidratos
-                                    .media-right.has-text-centered.has-text-success
-                                        span.icon.is-medium
-                                            i.fas.fa-2x.fa-check-circle
-                                        p.subtitle 08:00
-                                
-                                hr
-
-                                article.media.is-flex.v-center
-                                    .media-left.has-text-centered
-                                        span.icon.is-medium
-                                            i.fas.fa-2x.fa-drumstick-bite
-                                    .media-content
-                                        .content
-                                            p 
-                                                strong Almoço
-                                                br 
-                                                |   O vizinho do lado se ele não calar a boca
-                                    .media-right.has-text-centered.has-text-danger
-                                        span.icon.is-medium
-                                            i.fas.fa-2x.fa-exclamation-circle
-                                        p.subtitle 13:30
-                
+                      article.tile.is-child.box.is-success
+                          .content
+                              div.title.is-flex.v-center
+                                  span.icon.is-large.has-text-primary
+                                      i.fas.fa-utensils
+                                  p.subtitle.is-inline.card-title 
+                                      strong &nbspAlimentação
+                              if foods
+                                  #foods
+                                      for food in foods
+                                          article.media.is-flex.v-center
+                                              if food.breakfast
+                                                  .media-left.has-text-centered.has-text-info
+                                                          span.icon.is-medium
+                                                              i.fas.fa-2x.fa-egg
+                                                  .media-content
+                                                      .content
+                                                          p 
+                                                              strong="Café da manhã" 
+                                                              br 
+                                                              | {{ food.food_name }} 
+                                              elif food.lunch
+                                                  .media-left.has-text-centered.has-text-info
+                                                          span.icon.is-medium
+                                                              i.fas.fa-2x.fa-drumstick-bite
+                                                  .media-content
+                                                      .content
+                                                          p 
+                                                              strong="Almoço" 
+                                                              br 
+                                                              | {{ food.food_name }} 
+                                              elif food.dinner
+                                                  .media-left.has-text-centered.has-text-info
+                                                          span.icon.is-medium
+                                                              i.fas.fa-2x.fa-bacon
+                                                  .media-content
+                                                      .content
+                                                          p 
+                                                              strong="Jantar" 
+                                                              br 
+                                                              | {{ food.food_name }} 
+                                              if food.eaten
+                                                  .media-right.has-text-centered.has-text-success
+                                                      span.icon.is-medium
+                                                          i.fas.fa-2x.fa-check-circle
+                                                      p.subtitle=food.time_str
+                                              elif food.past_time
+                                                  .media-right.has-text-centered.has-text-danger
+                                                      span.icon.is-medium
+                                                          i.fas.fa-2x.fa-exclamation-circle
+                                                      p.subtitle=food.time_str
+                                              else
+                                                  .media-right.has-text-centered
+                                                          span.icon.is-medium
+                                                              i.fas.fa-2x.fa-clock
+                                                          p.subtitle=food.time_str
+                                          if not forloop.last
+                                              hr
+                              else
+                                  .has-text-centered
+                                      p.subtitle Não há refeições registradas.
                 .tile.is-ancestor
                     //- Medições
                     .tile.is-parent

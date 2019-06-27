@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'sass_processor',
     'users.apps.UsersConfig',
     'dashboard.apps.DashboardConfig',
-    'medications.apps.MedicationsConfig'
+    'medications.apps.MedicationsConfig',
+    'nutrition.apps.NutritionConfig'
 
 ]
 

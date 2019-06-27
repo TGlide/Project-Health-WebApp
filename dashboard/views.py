@@ -15,16 +15,19 @@ def dashboard(request):
     
     patient = None
     meds = []
+    food = []
     if caregiver.has_patients():
         patients = caregiver.patient_set.all()
         patient = patients[0]
         request.session['patient'] = patient.id
         meds = patient.medication_set.order_by("time")
+        foods = patient.nutrition_set.order_by("time")
         
     context = {
         'caregiver': caregiver,
         'patient': patient,
-        'meds': meds
+        'meds': meds,
+        'foods': foods
     }
     return render(request, 'dashboard.pug', context=context)
 
