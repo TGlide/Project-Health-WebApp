@@ -12,6 +12,12 @@ class Caregiver(models.Model):
     def has_patients(self):
         return len(self.patient_set.all())
 
+    def to_dict(self):
+        return {
+            'name': self.name,
+            'email': self.email,
+            'password': "hidden",
+        }
 
 class Patient(models.Model):
     caregiver = models.ForeignKey(Caregiver, on_delete=models.CASCADE)
@@ -22,3 +28,12 @@ class Patient(models.Model):
 
     def __str__(self):
         return "Patient {}".format(self.name)
+    
+    def to_dict(self):
+        return {
+            'caregiver': str(self.caregiver),
+            'name': self.name,
+            'email': self.email,
+            'password': "hidden",
+            'age': self.age
+        }

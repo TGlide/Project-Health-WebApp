@@ -17,3 +17,12 @@ class Medication(models.Model):
     
     def past_time(self):
         return datetime.now().time() > self.time
+    
+    def to_dict(self):
+        return {
+            'patient': self.patient.to_dict(),
+            'name': self.name,
+            'dose': self.dose,
+            'time': self.time,
+            'taken': self.taken
+        }

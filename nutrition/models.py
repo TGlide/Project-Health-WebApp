@@ -21,4 +21,13 @@ class Nutrition(models.Model):
     def past_time(self):
         return datetime.now().time() > self.time
 
+    def to_dict(self):
+        return {
+            'patient': self.patient.to_dict(),
+            'food_name': self.food_name,
+            'time': self.time,
+            'eaten': self.eaten,
+            'icon': self.icon
+        }
+
 
