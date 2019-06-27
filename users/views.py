@@ -24,3 +24,8 @@ def patient_details(request, patient_id):
     }
 
     return render(request, 'patient_details.pug', context=context)
+
+
+def patient_add(request):
+    if request.method == 'GET':
+        return render(request, 'patient_add.pug')

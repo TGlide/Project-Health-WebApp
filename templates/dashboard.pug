@@ -2,142 +2,150 @@ extends base
 {% load sass_tags %}
 {% load static %}
 
-block styles
+block append styles
     link(rel='stylesheet' href='{% sass_src "sass/dashboard.sass" %}' type="text/css")
 
 block content
     section.section(style='margin:15px')
         .container
-            p.title Bom dia, {{ caregiver.name }}!
-            .tile.is-ancestor
-                //- Paciente
-                .tile.is-parent.is-3
-                    article.tile.is-child.box.notification.is-info#profilePic
-                        p.title Sra. {{ patient.name }}
-                        p.subtitle 86 anos
-                        figure.image.is-1by1
-                            img.is-rounded(src="{% static 'imgs/avatar-w-1.png' %}")
-                //- Medicamentos 
-                .tile.is-parent
-                    article.tile.is-child.box.is-success
-                        .content
-                            div.title.is-flex.v-center#medsTitle
-                                span.icon.is-large.has-text-med
-                                    i.fas.fa-pills
-                                p.subtitle.is-inline.card-title 
-                                    strong &nbspMedicamentos
-                            if meds
-                                #meds
-                                    for med in meds
-                                        article.media.is-flex.v-center
-                                            .media-left.has-text-centered.has-text-info
-                                                div.pill-avatar
-                                                    figure.image.is-32x32.is-marginless
-                                                        img(src="{% static 'imgs/pill.png' %}", alt="", srcset="")
-                                            .media-content
-                                                .content
-                                                    p 
-                                                        strong=med.name 
-                                                        br 
-                                                        | {{ med.dose }} 
-                                            if med.taken
-                                                .media-right.has-text-centered.has-text-success
-                                                    span.icon.is-medium
-                                                        i.fas.fa-2x.fa-check-circle
-                                                    p.subtitle=med.time_str
-                                            elif med.past_time
-                                                .media-right.has-text-centered.has-text-danger
-                                                    span.icon.is-medium
-                                                        i.fas.fa-2x.fa-exclamation-circle
-                                                    p.subtitle=med.time_str
-                                            else
-                                                .media-right.has-text-centered
+            
+            if not caregiver.has_patients
+                .has-text-centered
+                    p.title Não há pacientes registrados.
+            else
+                p.title Bom dia, {{ caregiver.name }}!
+                //- Tiles
+                .tile.is-ancestor
+                    //- Paciente
+                    .tile.is-parent.is-3
+                        article.tile.is-child.box.notification.is-info#profilePic
+                            p.title Sra. {{ patient.name }}
+                            p.subtitle {{ patient.age }} anos
+                            figure.image.is-1by1
+                                img.is-rounded(src="{% static 'imgs/avatar-w-1.png' %}")
+                    
+                    //- Medicamentos 
+                    .tile.is-parent
+                        article.tile.is-child.box.is-success
+                            .content
+                                div.title.is-flex.v-center#medsTitle
+                                    span.icon.is-large.has-text-med
+                                        i.fas.fa-pills
+                                    p.subtitle.is-inline.card-title 
+                                        strong &nbspMedicamentos
+                                if meds
+                                    #meds
+                                        for med in meds
+                                            article.media.is-flex.v-center
+                                                .media-left.has-text-centered.has-text-info
+                                                    div.pill-avatar
+                                                        figure.image.is-32x32.is-marginless
+                                                            img(src="{% static 'imgs/pill.png' %}", alt="", srcset="")
+                                                .media-content
+                                                    .content
+                                                        p 
+                                                            strong=med.name 
+                                                            br 
+                                                            | {{ med.dose }} 
+                                                if med.taken
+                                                    .media-right.has-text-centered.has-text-success
                                                         span.icon.is-medium
-                                                            i.fas.fa-2x.fa-clock
+                                                            i.fas.fa-2x.fa-check-circle
                                                         p.subtitle=med.time_str
-                                        if not forloop.last
-                                            hr
-                            else
-                                .has-text-centered
-                                    p.subtitle Não há medicamentos registrados.
-                //- Alimentação
-                .tile.is-parent
-                    article.tile.is-child.box.is-success
-                        .content
-                            div.title.is-flex.v-center
-                                span.icon.is-large.has-text-primary
-                                    i.fas.fa-utensils
-                                p.subtitle.is-inline.card-title 
-                                    strong &nbspAlimentação
-                            if foods
-                                #foods
-                                    for food in foods
-                                        article.media.is-flex.v-center
-                                            if food.breakfast
-                                                .media-left.has-text-centered.has-text-info
+                                                elif med.past_time
+                                                    .media-right.has-text-centered.has-text-danger
                                                         span.icon.is-medium
-                                                            i.fas.fa-2x.fa-egg
-                                                .media-content
-                                                    .content
-                                                        p 
-                                                            strong="Café da manhã" 
-                                                            br 
-                                                            | {{ food.food_name }} 
-                                            elif food.lunch
-                                                .media-left.has-text-centered.has-text-info
-                                                        span.icon.is-medium
-                                                            i.fas.fa-2x.fa-drumstick-bite
-                                                .media-content
-                                                    .content
-                                                        p 
-                                                            strong="Almoço" 
-                                                            br 
-                                                            | {{ food.food_name }} 
-                                            elif food.dinner
-                                                .media-left.has-text-centered.has-text-info
-                                                        span.icon.is-medium
-                                                            i.fas.fa-2x.fa-bacon
-                                                .media-content
-                                                    .content
-                                                        p 
-                                                            strong="Jantar" 
-                                                            br 
-                                                            | {{ food.food_name }} 
-                                            if food.eaten
-                                                .media-right.has-text-centered.has-text-success
-                                                    span.icon.is-medium
-                                                        i.fas.fa-2x.fa-check-circle
-                                                    p.subtitle=food.time_str
-                                            elif food.past_time
-                                                .media-right.has-text-centered.has-text-danger
-                                                    span.icon.is-medium
-                                                        i.fas.fa-2x.fa-exclamation-circle
-                                                    p.subtitle=food.time_str
-                                            else
-                                                .media-right.has-text-centered
-                                                        span.icon.is-medium
-                                                            i.fas.fa-2x.fa-clock
-                                                        p.subtitle=food.time_str
-                                        if not forloop.last
-                                            hr
-                            else
-                                .has-text-centered
-                                    p.subtitle Não há refeições registradas.
-            .tile.is-ancestor
-                //- Medições
-                .tile.is-parent
-                    article.tile.is-child.box
-                        .content
-                            div.title.is-flex.v-center
-                                span.icon.is-large.has-text-danger
-                                    i.fas.fa-heartbeat
-                                p.subtitle.is-inline.card-title  
-                                    strong &nbspMedições
-                            .columns
-                                .column
-                                    canvas#medChartBPM
-                                .column
-                                    canvas#medChartPre
+                                                            i.fas.fa-2x.fa-exclamation-circle
+                                                        p.subtitle=med.time_str
+                                                else
+                                                    .media-right.has-text-centered
+                                                            span.icon.is-medium
+                                                                i.fas.fa-2x.fa-clock
+                                                            p.subtitle=med.time_str
+                                            if not forloop.last
+                                                hr
+                                else
+                                    .has-text-centered
+                                        p.subtitle Não há medicamentos registrados.
+                    
+                    //- Alimentação
+                    .tile.is-parent
+                      article.tile.is-child.box.is-success
+                          .content
+                              div.title.is-flex.v-center
+                                  span.icon.is-large.has-text-primary
+                                      i.fas.fa-utensils
+                                  p.subtitle.is-inline.card-title 
+                                      strong &nbspAlimentação
+                              if foods
+                                  #foods
+                                      for food in foods
+                                          article.media.is-flex.v-center
+                                              if food.breakfast
+                                                  .media-left.has-text-centered.has-text-info
+                                                          span.icon.is-medium
+                                                              i.fas.fa-2x.fa-egg
+                                                  .media-content
+                                                      .content
+                                                          p 
+                                                              strong="Café da manhã" 
+                                                              br 
+                                                              | {{ food.food_name }} 
+                                              elif food.lunch
+                                                  .media-left.has-text-centered.has-text-info
+                                                          span.icon.is-medium
+                                                              i.fas.fa-2x.fa-drumstick-bite
+                                                  .media-content
+                                                      .content
+                                                          p 
+                                                              strong="Almoço" 
+                                                              br 
+                                                              | {{ food.food_name }} 
+                                              elif food.dinner
+                                                  .media-left.has-text-centered.has-text-info
+                                                          span.icon.is-medium
+                                                              i.fas.fa-2x.fa-bacon
+                                                  .media-content
+                                                      .content
+                                                          p 
+                                                              strong="Jantar" 
+                                                              br 
+                                                              | {{ food.food_name }} 
+                                              if food.eaten
+                                                  .media-right.has-text-centered.has-text-success
+                                                      span.icon.is-medium
+                                                          i.fas.fa-2x.fa-check-circle
+                                                      p.subtitle=food.time_str
+                                              elif food.past_time
+                                                  .media-right.has-text-centered.has-text-danger
+                                                      span.icon.is-medium
+                                                          i.fas.fa-2x.fa-exclamation-circle
+                                                      p.subtitle=food.time_str
+                                              else
+                                                  .media-right.has-text-centered
+                                                          span.icon.is-medium
+                                                              i.fas.fa-2x.fa-clock
+                                                          p.subtitle=food.time_str
+                                          if not forloop.last
+                                              hr
+                              else
+                                  .has-text-centered
+                                      p.subtitle Não há refeições registradas.
+                .tile.is-ancestor
+                    //- Medições
+                    .tile.is-parent
+                        article.tile.is-child.box
+                            .content
+                                div.title.is-flex.v-center
+                                    span.icon.is-large.has-text-danger
+                                        i.fas.fa-heartbeat
+                                    p.subtitle.is-inline.card-title  
+                                        strong &nbspMedições
+                                .columns
+                                    .column
+                                        canvas#medChartBPM
+                                    .column
+                                        canvas#medChartPre
 
 block scripts
     script(src="{% static 'js/dashboard.js' %}")
