@@ -15,11 +15,12 @@ def dashboard(request):
     
     patient = None
     meds = []
-    food = []
+    foods = []
     if caregiver.has_patients():
-        patients = caregiver.patient_set.all()
-        patient = patients[0]
-        request.session['patient'] = patient.id
+        if not 'patient' in request.session:
+            patients = caregiver.patient_set.all()
+            request.session['patient'] = patients[0].id
+        patient = Patient.objects.get(id=request.session['patient'])
         meds = patient.medication_set.order_by("time")
         foods = patient.nutrition_set.order_by("time")
         
@@ -52,3 +53,10 @@ def login(request):
                 return render(request, 'registration/login.pug', {'invalid': True})
         else:
             return render(request, 'registration/login.pug', {'invalid': True})
+
+def logout(request):
+    if 'caregiver' in request.session:
+        del request.session['caregiver']
+    if 'patient' in request.session:
+        del request.session['patient']
+    return redirect('dashboard:login')

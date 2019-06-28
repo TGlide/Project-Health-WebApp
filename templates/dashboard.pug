@@ -12,6 +12,10 @@ block content
             if not caregiver.has_patients
                 .has-text-centered
                     p.title Não há pacientes registrados.
+                    a.button.is-large.is-rounded.is-success(href="{% url 'users:patient_add' %}")
+                        span.icon
+                            i.fas.fa-plus-circle
+                        span Registrar novo paciente
             else
                 p.title Bom dia, {{ caregiver.name }}!
                 //- Tiles
@@ -147,5 +151,5 @@ block content
                                     .column
                                         canvas#medChartPre
 
-block scripts
+block append scripts
     script(src="{% static 'js/dashboard.js' %}")

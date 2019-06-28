@@ -17,7 +17,7 @@ html
                 nav.navbar.has-shadow.is-spaced.is-info.is-fixed-top(role='navigation', aria-label='main navigation')
                     .container
                         .navbar-brand
-                            a.navbar-item(href='dashboard')
+                            a.navbar-item(href='{% url "dashboard:dashboard" %}')
                                 img(src="{% static 'imgs/logo_altw.png' %}" style="max-height:40px")
                             a.navbar-burger.burger(role='button', aria-label='menu', aria-expanded='false', data-target='navbarBasicExample')
                                 span(aria-hidden='true')
@@ -43,7 +43,7 @@ html
                                         //-     i.fas.fa-lg.fa-ellipsis-h
                                         |   Mais
                                     .navbar-dropdown
-                                        a.navbar-item(href='patient/add')
+                                        a.navbar-item(href="{% url 'users:patient_add' %}")
                                             span.icon.is-medium.has-text-primary
                                                 i.fas.fa-lg.fa-plus 
                                             |   Adicionar Paciente
@@ -51,6 +51,11 @@ html
                                         a.navbar-item Ser
                                         hr.navbar-divider
                                         a.navbar-item Saudável
+                            .navbar-end
+                                a.navbar-item(href='{% url "dashboard:logout" %}')
+                                        span.icon.is-large
+                                            i.fas.fa-lg.fa-sign-out-alt
+                                        |   Log-out
 
 
         //- Navbar old 
@@ -89,7 +94,7 @@ html
 
         footer
             block footer
-                .footer
+                //- .footer
                     .content.has-text-centered
                         p
                             strong Project Health
@@ -104,3 +109,4 @@ html
             script(src="{% static 'vendor/Chart.bundle.js' %}")
             //- script(src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js')
             block scripts
+                script(src="{% static 'js/base.js' %}")

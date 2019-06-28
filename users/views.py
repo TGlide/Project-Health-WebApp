@@ -1,6 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
+from django.core.exceptions import ObjectDoesNotExist
+
 from .models import Caregiver, Patient
+from .forms import patient_addForm
 
 
 def caregiver_details(request, caregiver_id):
@@ -30,6 +33,30 @@ def patient_details(request, patient_id):
 def patient_add(request):
     if request.method == 'GET':
         return render(request, 'patient_add.pug')
+    elif request.method == 'POST':
+        form = patient_addForm(request.POST) # Cria form a partir de dados enviados
+        if form.is_valid():
+            data = form.cleaned_data
+            # Vê se caregiver está logado
+            try:
+                c = Caregiver.objects.get(id=request.session['caregiver'])
+            except ObjectDoesNotExist:
+                return redirect('dashboard:login')
+            else:
+                # Add paciente
+                patient = Patient()
+                patient.caregiver = c
+                patient.name = data['name']
+                patient.email = data['email']
+                patient.age = data['age']
+                patient.pw = 'not_defined'
+                patient.save()
+
+                if 'patient' not in request.session:
+                    request.session['patient'] = patient.id
+                
+                return redirect('dashboard:dashboard')
+                
 
 # API Views
 def api_caregiver(request, caregiver_id):
