@@ -27,6 +27,11 @@ block content
                             p.subtitle {{ patient.age }} anos
                             figure.image.is-1by1
                                 img.is-rounded(src="{% static 'imgs/avatar-w-1.png' %}")
+                            .has-text-centered(style='margin-top:10px')
+                                a.button.is-normal.is-rounded.is-primary(href='{% url "users:patient_all" %}')
+                                    span.icon
+                                        i.fas.fa-user-shield
+                                    span Trocar paciente
                     
                     //- Medicamentos 
                     .tile.is-parent

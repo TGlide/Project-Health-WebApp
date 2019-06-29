@@ -6,6 +6,8 @@ app_name = "users"
 
 urlpatterns = [
     path('caregiver/<int:caregiver_id>', views.caregiver_details, name='caregiver_details'),
+    path('patient/all', views.patient_all, name='patient_all'),
+    path('patient/change/<int:patient_id>', views.patient_change, name='patient_change'),
     path('patient/<int:patient_id>', views.patient_details, name='patient_details'),
     path('patient/add', views.patient_add, name='patient_add'),
     path('api/caregiver/<int:caregiver_id>', views.api_caregiver, name='api_caregiver'),

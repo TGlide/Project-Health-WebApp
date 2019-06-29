@@ -35,12 +35,23 @@
     color: #22c484
 
 .v-center
-    align-items: center
-    justify-content: left
+    align-items: center !important
+    justify-content: left !important
 
 .full-body
     height: 100vh
 
-// Footer
+
+// Transformations
+@keyframes fadein 
+    0%
+        opacity: 0
+    100%
+        opacity: 1
+.fade-load 
+    animation: fadein 1s;
+    -moz-animation: fadein 1s; /* Firefox */
+    -webkit-animation: fadein 1s; /* Safari and Chrome */
+    -o-animation: fadein 1s; /* Opera */
 
 

@@ -25,7 +25,7 @@ html
                                 span(aria-hidden='true')
                         .navbar-menu
                             .navbar-start
-                                a.navbar-item(href='meds')
+                                a.navbar-item(href='{% url "medications:meds_all" %}')
                                     span.icon.is-large
                                         i.fas.fa-lg.fa-pills 
                                     |   Medicamentos

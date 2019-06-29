@@ -4,6 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Caregiver, Patient
 from .forms import patient_addForm
+from helpers import logged
 
 
 def caregiver_details(request, caregiver_id):
@@ -18,6 +19,25 @@ def caregiver_details(request, caregiver_id):
     }
 
     return render(request, 'caregiver_details.pug', context=context)
+
+
+def patient_all(request):
+    if not logged(request):
+        return redirect('dashboard:login')
+    c = Caregiver.objects.get(id=request.session['caregiver'])
+    context = {
+        'patients': c.patient_set.all(),
+        'patient_current': request.session['patient']
+    }
+
+    return render(request, 'patient_all.pug', context=context)
+
+def patient_change(request, patient_id):
+    patient = get_object_or_404(Patient, id=patient_id)
+
+    request.session['patient'] = patient.id
+
+    return redirect("users:patient_all")
 
 
 def patient_details(request, patient_id):
