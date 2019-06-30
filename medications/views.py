@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404, Http404
+from django.shortcuts import render, redirect, get_object_or_404, Http404, HttpResponse
 from django.http import JsonResponse
 
 from .forms import meds_addForm
@@ -49,6 +49,27 @@ def meds_add(request):
             return redirect('medications:meds_all')
         else:
             return render(request, 'meds_add.pug', {'invalid': True})
+
+def meds_toggle(request):
+    if request.method == 'POST':
+        if not logged or 'patient' not in request.session:
+            return JsonResponse({'result': 'FAIL', 'message': 'error'})
+        
+        patient = get_object_or_404(Patient, id=request.session['patient'])
+        med = get_object_or_404(Medication, id=request.POST['med_id'])
+        if med.patient != patient:
+            return JsonResponse({'result': 'FAIL', 'message': 'error'})
+
+        if med.taken:
+            med.taken = False
+            state = ['awaiting','not_taken'][med.past_time()]
+        else:
+            med.taken = True
+            state = 'taken'
+        med.save()
+        return JsonResponse({'result': 'SUCCESS', 'message': 'yay', 'state': state, 'med_id': med.id})
+    return Http404()
+
 
 def meds_delete(request, med_id):
     if not logged:

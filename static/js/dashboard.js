@@ -10,7 +10,48 @@ $(document).ready(function (){
     var foodsTitleHeight = $('#foodsTitle').height();
     $('#foods').height(parentHeight - foodsTitleHeight - 15);
 
-    // Take med
+    // Take med - Toggle
+    function med_toggle_complete(res, status){
+        if (status == 'success') {
+            var state = res.responseJSON['state'];
+            var med_id = res.responseJSON['med_id'];
+            var med_button = $(`[med-id=${med_id}]`);
+
+            if (state == 'not_taken') {
+                med_button.removeClass('has-text-success');
+                med_button.removeClass('has-text-dark');
+                med_button.addClass('has-text-danger');
+                $('i', med_button).removeClass('fa-check-circle');
+                $('i', med_button).removeClass('fa-clock');
+                $('i', med_button).addClass('fa-exclamation-circle');
+            } else if (state == 'awaiting'){
+                med_button.removeClass('has-text-success');
+                med_button.removeClass('has-text-danger');
+                med_button.addClass('has-text-dark');
+                $('i', med_button).removeClass('fa-check-circle');
+                $('i', med_button).removeClass('fa-exclamation-circle');
+                $('i', med_button).addClass('fa-clock');
+            } else {
+                med_button.removeClass('has-text-danger');
+                med_button.removeClass('has-text-dark');
+                med_button.addClass('has-text-success');
+                $('i', med_button).removeClass('fa-exclamation-circle');
+                $('i', med_button).removeClass('fa-clock');
+                $('i', med_button).addClass('fa-check-circle');
+            }
+        }
+    }
+
+    $('.med-toggle').click(function() {
+        var data = {
+            med_id: $(this).attr('med-id'),
+            csrfmiddlewaretoken :$(this).attr('csrf')
+        };
+        var args = { type:"POST", url:"/meds/toggle/", data:data, complete: med_toggle_complete };
+        $.ajax(args);
+    })
+
+    // Take med - Icons Change
     $('.med-toggle').hover(function(){
         // Handler in
         if ($(this).hasClass("has-text-success")) {         // Toggle from Taken
