@@ -18,6 +18,13 @@ class Medication(models.Model):
     def past_time(self):
         return datetime.now().time() > self.time
     
+    def state(self):
+        if self.taken:
+            return 'taken'
+        if self.past_time():
+            return 'not_taken'
+        return 'awaiting'
+    
     def to_dict(self):
         return {
             'patient': self.patient.to_dict(),

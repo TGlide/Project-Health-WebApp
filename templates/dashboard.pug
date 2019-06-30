@@ -61,7 +61,10 @@ block content
                                                     a.med-toggle(class="
                                                 {% if med.taken %} has-text-success
                                                 {% elif med.past_time %} has-text-danger 
-                                                {% else %} has-text-dark {% endif %}" med-id=med.id csrf='{{ csrf_token }}')
+                                                {% else %} has-text-dark {% endif %}" 
+                                                med-id=med.id csrf='{{ csrf_token }}'
+                                                state=med.state()
+                                                )
                                                         span.icon.is-medium
                                                             i.fas.fa-2x(class="
                                                             {% if med.taken %} fa-check-circle 

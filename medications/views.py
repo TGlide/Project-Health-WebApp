@@ -62,12 +62,10 @@ def meds_toggle(request):
 
         if med.taken:
             med.taken = False
-            state = ['awaiting','not_taken'][med.past_time()]
         else:
             med.taken = True
-            state = 'taken'
         med.save()
-        return JsonResponse({'result': 'SUCCESS', 'message': 'yay', 'state': state, 'med_id': med.id})
+        return JsonResponse({'result': 'SUCCESS', 'message': 'yay', 'state': med.state(), 'med_id': med.id})
     return Http404()
 
 

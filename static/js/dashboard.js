@@ -14,35 +14,46 @@ $(document).ready(function (){
     function med_toggle_complete(res, status){
         if (status == 'success') {
             var state = res.responseJSON['state'];
+            console.log(state);
             var med_id = res.responseJSON['med_id'];
             var med_button = $(`[med-id=${med_id}]`);
-
+            
+            // Reset med_button icons
+            $("i", med_button).removeClass('fa-spin');
+            $("i", med_button).removeClass('fa-circle-notch');
+            $("i", med_button).removeClass('fa-check-circle');
+            $("i", med_button).removeClass('fa-exclamation-circle');
+            $("i", med_button).removeClass('fa-clock');
+            $(med_button).removeClass('has-text-success');
+            $(med_button).removeClass('has-text-danger');
+            $(med_button).removeClass('has-text-dark');
+            
+            // Add new classes
             if (state == 'not_taken') {
-                med_button.removeClass('has-text-success');
-                med_button.removeClass('has-text-dark');
                 med_button.addClass('has-text-danger');
-                $('i', med_button).removeClass('fa-check-circle');
-                $('i', med_button).removeClass('fa-clock');
                 $('i', med_button).addClass('fa-exclamation-circle');
             } else if (state == 'awaiting'){
-                med_button.removeClass('has-text-success');
-                med_button.removeClass('has-text-danger');
                 med_button.addClass('has-text-dark');
-                $('i', med_button).removeClass('fa-check-circle');
-                $('i', med_button).removeClass('fa-exclamation-circle');
                 $('i', med_button).addClass('fa-clock');
             } else {
-                med_button.removeClass('has-text-danger');
-                med_button.removeClass('has-text-dark');
                 med_button.addClass('has-text-success');
-                $('i', med_button).removeClass('fa-exclamation-circle');
-                $('i', med_button).removeClass('fa-clock');
                 $('i', med_button).addClass('fa-check-circle');
             }
+            $(med_button).attr('state', state)
         }
     }
 
     $('.med-toggle').click(function() {
+        // Set State to loading
+        $(this).attr('state', 'loading')
+        // Remove previous icon classes
+        $("i", this).removeClass('fa-check-circle');
+        $("i", this).removeClass('fa-exclamation-circle');
+        $("i", this).removeClass('fa-clock');
+
+        $("i", this).addClass('fa-spin');
+        $("i", this).addClass('fa-circle-notch');
+
         var data = {
             med_id: $(this).attr('med-id'),
             csrfmiddlewaretoken :$(this).attr('csrf')
@@ -54,17 +65,18 @@ $(document).ready(function (){
     // Take med - Icons Change
     $('.med-toggle').hover(function(){
         // Handler in
-        if ($(this).hasClass("has-text-success")) {         // Toggle from Taken
+        if ($(this).attr('state') == 'taken') {         // Toggle from Taken
             $(this).removeClass('has-text-success');
             $(this).addClass('has-text-danger');
             $("i", this).addClass('fa-ban');
-            $("i", this).removeClass('fa-check-circle')
-        } else if ($(this).hasClass("has-text-danger")){    // Toggle from Not taken 
+            $("i", this).removeClass('fa-check-circle');
+        } else if ($(this).attr('state') == 'not_taken') {    // Toggle from Not taken 
             $(this).addClass('has-text-success');
             $(this).removeClass('has-text-danger');
             $("i", this).addClass('fa-check-circle');
             $("i", this).removeClass('fa-exclamation-circle');
         } else {                                            // Toggle from Awaiting due time
+            $(this).removeClass('has-text-dark');
             $(this).addClass('has-text-success');
             $("i", this).addClass('fa-check-circle');
             $("i", this).removeClass('fa-clock');
@@ -72,21 +84,21 @@ $(document).ready(function (){
         
     }, function() {
         // Handler Out
-        if ($(this).hasClass("has-text-success")) {        
-            $(this).removeClass('has-text-success');
-            $("i", this).removeClass('fa-check-circle')
-            if (! $(this).hasClass("has-text-dark")){     
-                $(this).addClass('has-text-danger');
-                $("i", this).addClass('fa-exclamation-circle');
-            } else {
-                $("i", this).addClass('fa-clock');
-                $("i", this).removeClass('fa-check-circle');
-            }
-        } else if ($(this).hasClass("has-text-danger")){   
+        if ($(this).attr('state') == 'taken') {         // Toggle from Taken
             $(this).addClass('has-text-success');
             $(this).removeClass('has-text-danger');
-            $("i", this).addClass('fa-check-circle');
             $("i", this).removeClass('fa-ban');
+            $("i", this).addClass('fa-check-circle');
+        } else if ($(this).attr('state') == 'not_taken') {    // Toggle from Not taken 
+            $(this).removeClass('has-text-success');
+            $(this).addClass('has-text-danger');
+            $("i", this).removeClass('fa-check-circle');
+            $("i", this).addClass('fa-exclamation-circle');
+        } else if ($(this).attr('state') == 'awaiting'){                                            // Toggle from Awaiting due time
+            $(this).addClass('has-text-dark');
+            $(this).removeClass('has-text-success');
+            $("i", this).removeClass('fa-check-circle');
+            $("i", this).addClass('fa-clock');
         }
     });
 })
