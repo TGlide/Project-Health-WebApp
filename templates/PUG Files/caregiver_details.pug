@@ -1,0 +1,12 @@
+extend base.pug
+block content
+    section.section
+        .container
+            h1.title Caregiver
+            p.subtitle=caregiver.name
+            if patients
+                h1 Pacientes:
+                ul
+                    for patient in patients
+                        li
+                            a(href="{% url 'users:patient_details' patient.id%}") {{ patient.name }}

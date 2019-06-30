@@ -1,0 +1,42 @@
+extends base
+{% load static %}
+{% load sass_tags %}
+
+block append styles
+    link(rel='stylesheet' href='{% sass_src "sass/login.sass" %}' type="text/css")
+
+block navbar
+
+block content
+    body.notification.is-info.full-body
+        .section
+            .container
+                figure.image.has-text-centered
+                    img.logo(src="{% static 'imgs/logo.png' %}")
+                #loginBox.has-text-centered.box
+                    h1.title Login
+                    hr
+                    form(method='post')
+                        {% csrf_token %}
+                        .field
+                            p.control.has-icons-left.has-icons-right
+                                input.input(type='email', placeholder='Email' name='email')
+                                span.icon.is-small.is-left
+                                    i.fas.fa-envelope
+                        .field
+                            p.control.has-icons-left
+                                input.input(type='password', placeholder='Senha' name='pw')
+                                span.icon.is-small.is-left
+                                    i.fas.fa-lock
+                        .field
+                            p.control
+                                .buttons.has-addons
+                                    button.button.is-success
+                                        | Login
+                                    a.button.is-info(href='{% url "dashboard:signup" %}')
+                                        | Cadastre-se
+                                if invalid
+                                    p.help.is-danger Dados inválidos.
+                                if signup
+                                    p.help.is-success Usuário criado com sucesso!
+block footer

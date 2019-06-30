@@ -49,27 +49,27 @@ block content
                                                     div.pill-avatar
                                                         figure.image.is-32x32.is-marginless
                                                             img(src="{% static 'imgs/pill.png' %}", alt="", srcset="")
-                                                
                                                 .media-content
                                                     .content
                                                         p 
                                                             strong=med.name 
                                                             br 
                                                             | {{ med.dose }} 
-                                                
-                                                .media-right.has-text-centered
-                                                    a.med-toggle(class="
-                                                {% if med.taken %} has-text-success
-                                                {% elif med.past_time %} has-text-danger 
-                                                {% else %} has-text-dark {% endif %}")
+                                                if med.taken
+                                                    .media-right.has-text-centered.has-text-success
                                                         span.icon.is-medium
-                                                            i.fas.fa-2x(class="
-                                                            {% if med.taken %} fa-check-circle 
-                                                            {% elif med.past_time %} fa-exclamation-circle 
-                                                            {% else %} fa-clock {% endif %}")
-                                                    
-                                                    p.subtitle=med.time_str
-                                                
+                                                            i.fas.fa-2x.fa-check-circle
+                                                        p.subtitle=med.time_str
+                                                elif med.past_time
+                                                    .media-right.has-text-centered.has-text-danger
+                                                        span.icon.is-medium
+                                                            i.fas.fa-2x.fa-exclamation-circle
+                                                        p.subtitle=med.time_str
+                                                else
+                                                    .media-right.has-text-centered
+                                                            span.icon.is-medium
+                                                                i.fas.fa-2x.fa-clock
+                                                            p.subtitle=med.time_str
                                             if not forloop.last
                                                 hr
                                 else

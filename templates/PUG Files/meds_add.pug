@@ -1,0 +1,45 @@
+extends base
+{% load static %}
+
+block content
+    .section.after-nav.fade-load
+        .container
+            form.box(method='post')
+                {% csrf_token %}
+                .field.is-horizontal
+                    .field-label.is-normal
+                        label.label Medicamento
+                    .field-body
+                        .field
+                            p.control.is-expanded.has-icons-left
+                                input.input(type='text', placeholder='Nome' name='name')
+                                span.icon.is-small.is-left
+                                    i.fas.fa-clipboard
+                        .field
+                            p.control.is-expanded.has-icons-left
+                                input.input(type='text', placeholder='Dosagem' name='dose')
+                                span.icon.is-small.is-left
+                                    i.fas.fa-pills
+                .field.is-horizontal
+                    .field-label
+                    .field-body
+                        .field
+                            p.control.is-expanded.has-icons-left
+                                input.input(type='time', placeholder='Hora' name='time')
+                                span.icon.is-small.is-left
+                                    i.fas.fa-clock
+                .field.is-horizontal
+                    .field-label
+                        // Left empty for spacing
+                    .field-body
+                        .field
+                            .control
+                                button.button.is-primary(type='submit')
+                                    | Submit
+                                if invalid
+                                    p.help.is-danger Dados inválidos/incompletos.
+
+
+
+
+

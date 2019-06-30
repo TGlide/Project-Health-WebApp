@@ -1,5 +1,5 @@
-// Heights for scrollbar 
 $(document).ready(function (){
+    // Heights for scrollbar 
     $('#meds').height(0);
     var parentHeight = $('#profilePic').height();
     var medsTitleHeight = $('#medsTitle').height();
@@ -9,6 +9,45 @@ $(document).ready(function (){
     var parentHeight = $('#profilePic').height();
     var foodsTitleHeight = $('#foodsTitle').height();
     $('#foods').height(parentHeight - foodsTitleHeight - 15);
+
+    // Take med
+    $('.med-toggle').hover(function(){
+        // Handler in
+        if ($(this).hasClass("has-text-success")) {         // Toggle from Taken
+            $(this).removeClass('has-text-success');
+            $(this).addClass('has-text-danger');
+            $("i", this).addClass('fa-ban');
+            $("i", this).removeClass('fa-check-circle')
+        } else if ($(this).hasClass("has-text-danger")){    // Toggle from Not taken 
+            $(this).addClass('has-text-success');
+            $(this).removeClass('has-text-danger');
+            $("i", this).addClass('fa-check-circle');
+            $("i", this).removeClass('fa-exclamation-circle');
+        } else {                                            // Toggle from Awaiting due time
+            $(this).addClass('has-text-success');
+            $("i", this).addClass('fa-check-circle');
+            $("i", this).removeClass('fa-clock');
+        }
+        
+    }, function() {
+        // Handler Out
+        if ($(this).hasClass("has-text-success")) {        
+            $(this).removeClass('has-text-success');
+            $("i", this).removeClass('fa-check-circle')
+            if (! $(this).hasClass("has-text-dark")){     
+                $(this).addClass('has-text-danger');
+                $("i", this).addClass('fa-exclamation-circle');
+            } else {
+                $("i", this).addClass('fa-clock');
+                $("i", this).removeClass('fa-check-circle');
+            }
+        } else if ($(this).hasClass("has-text-danger")){   
+            $(this).addClass('has-text-success');
+            $(this).removeClass('has-text-danger');
+            $("i", this).addClass('fa-check-circle');
+            $("i", this).removeClass('fa-ban');
+        }
+    });
 })
 
 

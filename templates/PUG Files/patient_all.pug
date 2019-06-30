@@ -1,0 +1,65 @@
+extends base
+{% load static %}
+{% load sass_tags %}
+
+block append styles
+        link(rel='stylesheet' href='{% sass_src "sass/patient_all.sass" %}' type="text/css")
+
+
+block content
+    .section.after-nav
+        .container
+
+            div.title.v-center.is-flex
+                span.icon.is-large.has-text-med
+                    i.fas.fa-user-shield
+                span &nbspPacientes
+                a.button.is-rounded.is-success(href="{% url 'users:patient_add' %}" style='margin-left: auto')
+                    span.icon
+                        i.fas.fa-plus-circle
+                    span Registrar novo paciente
+
+            if not patients
+                .has-text-centered
+                    p.title Não há pacientes registrados.
+                    a.button.is-large.is-rounded.is-success(href="{% url 'users:patient_add' %}")
+                        span.icon
+                            i.fas.fa-plus-circle
+                        span Registrar novo paciente
+            else
+                div(style='margin-top:10px').fade-load
+                    for p in patients
+                        article.media.is-flex.v-center.box(class=['', 'notification is-danger'][patient_current == p.id])
+                            .media-left.has-text-centered.has-text-info
+                                .columns
+                                    .column.v-center.is-flex.fade-load
+                                        if patient_current == p.id
+                                            span.icon.is-small.has-text-white
+                                                i.fas.fa-lg.fa-chevron-right
+                                        else 
+                                            span.icon.is-small(style='opacity: 0')
+                                                i.fas.fa-lg.fa-chevron-right
+                                    .column
+                                        figure.image.is-128x128
+                                            img.is-rounded(src="{% static 'imgs/avatar-w-1.png' %}")
+                            .media-content
+                                .content
+                                    p.title=p.name
+                                    p.subtitle=p.age
+                            
+                            .media-right.has-text-centered
+                                a.button.is-info.patient-button
+                                    span.icon.is-medium
+                                        i.fas.fa-lg.fa-edit
+                                    span Editar
+                                if patient_current == p.id
+                                    a.button.is-danger.patient-button(style='margin-top:10px' disabled)
+                                        span.icon.is-medium
+                                            i.fas.fa-lg.fa-heartbeat
+                                        span Selecionado
+                                else
+                                    a.button.is-danger.patient-button.load-on-click(style='margin-top:10px' href="{% url 'users:patient_change' p.id %}")
+                                        span.icon.is-medium
+                                            i.fas.fa-lg.fa-heartbeat
+                                        span Selecionar
+                                

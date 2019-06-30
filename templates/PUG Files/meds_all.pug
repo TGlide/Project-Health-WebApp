@@ -1,0 +1,62 @@
+extends base
+{% load static %}
+{% load sass_tags %}
+
+block append styles
+        link(rel='stylesheet' href='{% sass_src "sass/patient_all.sass" %}' type="text/css")
+
+
+block content
+    .section.after-nav.fade-load
+        .container
+            if patient
+                div.title.v-center.is-flex
+                    span.icon.is-large.has-text-med
+                        i.fas.fa-pills
+                    span &nbspMedicamentos
+                    a.button.is-rounded.is-success(href="{% url 'medications:meds_add' %}" style='margin-left: auto')
+                        span.icon
+                            i.fas.fa-plus-circle
+                        span Registrar novo medicamento
+            if not patient
+                .has-text-centered
+                    p.title Não há pacientes registrados para exibir/adicionar medicamentos.
+                    a.button.is-large.is-rounded.is-success(href="{% url 'users:patient_add' %}")
+                        span.icon
+                            i.fas.fa-plus-circle
+                        span Registrar novo paciente
+            elif not meds
+                .has-text-centered
+                    p.title Não há medicamentos registrados.
+                    a.button.is-large.is-rounded.is-success(href="#")
+                        span.icon
+                            i.fas.fa-plus-circle
+                        span Registrar novo medicamento
+            else
+                div(style='margin-top:10px').fade-load
+                    for med in meds
+                        {% cycle 'row' '' as row silent %}
+                        {% if row %} <div class='columns'> {% endif %}
+                        .column
+                            article.media.is-flex.v-center.box
+                                .media-left.has-text-centered.has-text-info
+                                    div.pill-avatar
+                                        figure.image.is-32x32.is-marginless
+                                            img(src="{% static 'imgs/pill.png' %}", alt="", srcset="")
+                                .media-content
+                                    .content
+                                        p 
+                                            strong=med.name 
+                                            br 
+                                            | {{ med.dose }} 
+                                .media-right.has-text-centered
+                                    a.button.is-info.patient-button
+                                        span.icon.is-medium
+                                            i.fas.fa-lg.fa-edit
+                                        span Editar
+                                    a.button.is-danger.patient-button(href="{% url 'medications:meds_delete' med.id %}" style='margin-top:5px')
+                                        span.icon.is-medium
+                                            i.fas.fa-lg.fa-trash
+                                        span Deletar
+                        {% if forloop.last and forloop.counter0|divisibleby:"2" %} <div class='column'></div> {% endif %}
+                        {% if not row %} </div> {% endif %}
