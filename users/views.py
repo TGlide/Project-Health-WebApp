@@ -75,7 +75,7 @@ def patient_add(request):
                 if 'patient' not in request.session:
                     request.session['patient'] = patient.id
                 
-                return redirect('dashboard:dashboard')
+                return redirect('users:patient_all')
                 
 
 # API Views

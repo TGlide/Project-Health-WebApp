@@ -43,11 +43,14 @@ html
                                         //-     i.fas.fa-lg.fa-ellipsis-h
                                         |   Mais
                                     .navbar-dropdown
-                                        a.navbar-item(href="{% url 'users:patient_add' %}")
+                                        a.navbar-item(href="{% url 'users:patient_all' %}")
                                             span.icon.is-medium.has-text-primary
+                                                i.fas.fa-lg.fa-user-shield 
+                                            |   Todos os pacientes
+                                        a.navbar-item(href="{% url 'users:patient_add' %}")
+                                            span.icon.is-medium.has-text-info
                                                 i.fas.fa-lg.fa-plus 
                                             |   Adicionar Paciente
-                                        a.navbar-item Quero
                                         a.navbar-item Ser
                                         hr.navbar-divider
                                         a.navbar-item Saudável

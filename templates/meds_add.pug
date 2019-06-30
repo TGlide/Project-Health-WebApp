@@ -8,28 +8,26 @@ block content
                 {% csrf_token %}
                 .field.is-horizontal
                     .field-label.is-normal
-                        label.label Paciente
+                        label.label Medicamento
                     .field-body
                         .field
                             p.control.is-expanded.has-icons-left
                                 input.input(type='text', placeholder='Nome' name='name')
                                 span.icon.is-small.is-left
-                                    i.fas.fa-user
+                                    i.fas.fa-clipboard
                         .field
-                            p.control.is-expanded.has-icons-left.has-icons-right
-                                input.input(type='email', placeholder='Email', value='' name='email')
+                            p.control.is-expanded.has-icons-left
+                                input.input(type='text', placeholder='Dosagem' name='dose')
                                 span.icon.is-small.is-left
-                                    i.fas.fa-envelope
-                                span.icon.is-small.is-right
-                                    i.fas.fa-check
+                                    i.fas.fa-pills
                 .field.is-horizontal
                     .field-label
                     .field-body
                         .field
                             p.control.is-expanded.has-icons-left
-                                input.input(type='text', placeholder='Idade' name='age')
+                                input.input(type='time', placeholder='Hora' name='time')
                                 span.icon.is-small.is-left
-                                    i.fas.fa-calendar
+                                    i.fas.fa-clock
                 .field.is-horizontal
                     .field-label
                         // Left empty for spacing

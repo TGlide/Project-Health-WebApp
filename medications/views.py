@@ -1,14 +1,65 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404, Http404
 from django.http import JsonResponse
+
+from .forms import meds_addForm
 from users.models import Caregiver, Patient
+from medications.models import Medication
 from helpers import logged
 
 def meds_all(request):
     if not logged:
         return redirect('dashboard:login')
-    caregiver = Caregiver.objects.get(id=request.session['caregiver'])
-
     
-    return render(request, 'meds_all.pug')
+    patient = None
+    meds = None
+    if 'patient' in request.session:
+        patient = Patient.objects.get(id=request.session['patient'])
+        meds = patient.medication_set.all()
 
+    context = {
+        'patient': patient,
+        'meds': meds
+    }
+
+    return render(request, 'meds_all.pug', context)
+
+def meds_add(request):
+    if not logged:
+        return redirect('dashboard:login')
+    if not 'patient' in request.session:
+        return redirect('medications:meds_all')
+
+    if request.method == 'GET':
+        return render(request, 'meds_add.pug')
+
+    elif request.method == 'POST':
+        form = meds_addForm(request.POST) # Cria form a partir de dados enviados
+        if form.is_valid():
+            data = form.cleaned_data
+            # Add med
+            patient =  get_object_or_404(Patient, id=request.session['patient'])
+            med = Medication()
+            med.name = data['name']
+            med.dose = data['dose']
+            med.time = data['time']
+            med.taken = False
+            med.patient = patient
+            med.save()
+            
+            return redirect('medications:meds_all')
+        else:
+            return render(request, 'meds_add.pug', {'invalid': True})
+
+def meds_delete(request, med_id):
+    if not logged:
+        return redirect('dashboard:login')
+    
+    patient = get_object_or_404(Patient, id=request.session['patient'])
+    med = get_object_or_404(Medication, id=med_id)
+    if med.patient != patient:
+        return Http404()
+    med.delete()
+
+    return redirect('medications:meds_all')
+    
 # API views

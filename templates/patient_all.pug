@@ -9,10 +9,16 @@ block append styles
 block content
     .section.after-nav
         .container
-            div.title
+
+            div.title.v-center.is-flex
                 span.icon.is-large.has-text-med
                     i.fas.fa-user-shield
                 span &nbspPacientes
+                a.button.is-rounded.is-success(href="{% url 'users:patient_add' %}" style='margin-left: auto')
+                    span.icon
+                        i.fas.fa-plus-circle
+                    span Registrar novo paciente
+
             if not patients
                 .has-text-centered
                     p.title Não há pacientes registrados.
