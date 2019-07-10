@@ -6,7 +6,7 @@ class Nutrition(models.Model):
     food_name = models.CharField(max_length=32)
     time = models.TimeField()
     eaten = models.BooleanField()
-    icon = models.CharField(max_length=16)  # Breakfast, lunch or dinner  
+    icon = models.CharField(max_length=16)  # breakfast, lunch or dinner  
     # breakfast = models.BooleanField()
     # lunch = models.BooleanField()
     # dinner = models.BooleanField()
@@ -23,17 +23,18 @@ class Nutrition(models.Model):
 
     def to_dict(self):
         return {
-            'patient': self.patient.to_dict(),
+            'patient': str(self.patient),
             'food_name': self.food_name,
             'time': self.time,
             'eaten': self.eaten,
-            'icon': self.icon
+            'icon': self.icon,
+            'id': self.id
         }
 
     def state(self):
         if self.eaten:
             return 'eaten'
         if self.past_time():
-            return 'not_eaten
+            return 'not_eaten'
         return 'awaiting'
 

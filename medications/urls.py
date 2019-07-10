@@ -9,4 +9,7 @@ urlpatterns = [
     path('meds/add', views.meds_add, name='meds_add'),
     path('meds/toggle/', views.meds_toggle, name='meds_toggle'),
     path('meds/delete/<int:med_id>', views.meds_delete, name='meds_delete'),
+
+    path('api/meds', views.api_meds, name='api_meds'),
+
 ]
