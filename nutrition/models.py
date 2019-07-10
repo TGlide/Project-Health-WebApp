@@ -30,4 +30,10 @@ class Nutrition(models.Model):
             'icon': self.icon
         }
 
+    def state(self):
+        if self.eaten:
+            return 'eaten'
+        if self.past_time():
+            return 'not_eaten
+        return 'awaiting'
 

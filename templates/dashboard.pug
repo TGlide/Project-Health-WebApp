@@ -31,7 +31,7 @@ block content
                                     span.icon
                                         i.fas.fa-user-shield
                                     span Trocar paciente
-                    
+
                     //- Medicamentos 
                     .tile.is-parent
                         article.tile.is-child.box.is-success
@@ -49,99 +49,99 @@ block content
                                                     div.pill-avatar
                                                         figure.image.is-32x32.is-marginless
                                                             img(src="{% static 'imgs/pill.png' %}", alt="", srcset="")
-                                                
+
                                                 .media-content
                                                     .content
                                                         p 
                                                             strong=med.name 
                                                             br 
                                                             | {{ med.dose }} 
-                                                
+
                                                 .media-right.has-text-centered
                                                     a.med-toggle(class="
-                                                {% if med.taken %} has-text-success
-                                                {% elif med.past_time %} has-text-danger 
-                                                {% else %} has-text-dark {% endif %}" 
-                                                med-id=med.id csrf='{{ csrf_token }}'
-                                                state=med.state()
-                                                )
+                                                    {% if med.taken %} has-text-success
+                                                    {% elif med.past_time %} has-text-danger 
+                                                    {% else %} has-text-dark {% endif %}" 
+                                                    med-id=med.id csrf='{{ csrf_token }}'
+                                                    state=med.state()
+                                                    )
                                                         span.icon.is-medium
                                                             i.fas.fa-2x(class="
                                                             {% if med.taken %} fa-check-circle 
                                                             {% elif med.past_time %} fa-exclamation-circle 
                                                             {% else %} fa-clock {% endif %}")
-                                                    
+
                                                     p.subtitle=med.time_str
-                                                
+
                                             if not forloop.last
                                                 hr
                                 else
                                     .has-text-centered
                                         p.subtitle Não há medicamentos registrados.
-                    
+
                     //- Alimentação
                     .tile.is-parent
-                      article.tile.is-child.box.is-success
-                          .content
-                              div.title.is-flex.v-center#foodsTitle
-                                  span.icon.is-large.has-text-primary
-                                      i.fas.fa-utensils
-                                  p.subtitle.is-inline.card-title 
-                                      strong &nbspAlimentação
-                              if foods
-                                  #foods
-                                      for food in foods
-                                          article.media.is-flex.v-center
-                                              if food.icon == 'breakfast'
-                                                  .media-left.has-text-centered.has-text-info
+                        article.tile.is-child.box.is-success
+                            .content
+                                div.title.is-flex.v-center#foodsTitle
+                                    span.icon.is-large.has-text-primary
+                                        i.fas.fa-utensils
+                                    p.subtitle.is-inline.card-title 
+                                        strong &nbspAlimentação
+                                if foods
+                                    #foods
+                                        for food in foods
+                                            article.media.is-flex.v-center
+                                                if food.icon == 'breakfast'
+                                                    .media-left.has-text-centered.has-text-info
                                                         span.icon.is-medium
                                                             i.fas.fa-2x.fa-egg
-                                                  .media-content
-                                                      .content
-                                                          p 
-                                                              strong="Café da manhã" 
-                                                              br 
-                                                              | {{ food.food_name }} 
-                                              elif food.icon == 'lunch'
-                                                  .media-left.has-text-centered.has-text-info
+                                                    .media-content
+                                                        .content
+                                                            p 
+                                                                strong="Café da manhã" 
+                                                                br 
+                                                                | {{ food.food_name }} 
+                                                elif food.icon == 'lunch'
+                                                    .media-left.has-text-centered.has-text-info
                                                         span.icon.is-medium
                                                             i.fas.fa-2x.fa-drumstick-bite
-                                                  .media-content
-                                                      .content
-                                                          p 
-                                                              strong="Almoço" 
-                                                              br 
-                                                              | {{ food.food_name }} 
-                                              elif food.icon == 'dinner'
-                                                  .media-left.has-text-centered.has-text-info
+                                                    .media-content
+                                                        .content
+                                                            p 
+                                                                strong="Almoço" 
+                                                                br 
+                                                                | {{ food.food_name }} 
+                                                elif food.icon == 'dinner'
+                                                    .media-left.has-text-centered.has-text-info
                                                         span.icon.is-medium
                                                             i.fas.fa-2x.fa-bacon
-                                                  .media-content
-                                                      .content
-                                                          p 
-                                                              strong="Jantar" 
-                                                              br 
-                                                              | {{ food.food_name }} 
-                                              if food.eaten
-                                                  .media-right.has-text-centered.has-text-success
-                                                      span.icon.is-medium
-                                                          i.fas.fa-2x.fa-check-circle
-                                                      p.subtitle=food.time_str
-                                              elif food.past_time
-                                                  .media-right.has-text-centered.has-text-danger
-                                                      span.icon.is-medium
-                                                          i.fas.fa-2x.fa-exclamation-circle
-                                                      p.subtitle=food.time_str
-                                              else
-                                                  .media-right.has-text-centered
-                                                          span.icon.is-medium
-                                                              i.fas.fa-2x.fa-clock
-                                                          p.subtitle=food.time_str
-                                          if not forloop.last
-                                              hr
-                              else
-                                  .has-text-centered
-                                      p.subtitle Não há refeições registradas.
+                                                    .media-content
+                                                        .content
+                                                            p 
+                                                                strong="Jantar" 
+                                                                br 
+                                                                | {{ food.food_name }} 
+                                                
+
+                                                .media-right.has-text-centered
+                                                    a.food-toggle(class="
+                                                    {% if food.eaten %} has-text-success
+                                                    {% elif food.past_time %} has-text-danger
+                                                    {% else %} has-text-dark {% endif %}"
+                                                    food-id=food.id csrf="{{ csrf_token }}")
+                                                        span.icon.is-medium
+                                                            i.fas.fa-2x(class="
+                                                            {% if food.eaten %} fa-check-circle 
+                                                            {% elif food.past_time %} fa-exclamation-circle 
+                                                            {% else %} fa-clock {% endif %}")
+                                                        p.subtitle=food.time_str
+                                                        
+                                            if not forloop.last
+                                                hr
+                                else
+                                    .has-text-centered
+                                        p.subtitle Não há refeições registradas.
                 .tile.is-ancestor
                     //- Medições
                     .tile.is-parent
