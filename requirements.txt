@@ -3,3 +3,5 @@ pypugjs
 libsass
 django-compressor
 django-sass-processor
+django-heroku
+gunicorn

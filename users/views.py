@@ -32,6 +32,7 @@ def patient_all(request):
 
     return render(request, 'patient_all.pug', context=context)
 
+
 def patient_change(request, patient_id):
     patient = get_object_or_404(Patient, id=patient_id)
 
@@ -54,7 +55,8 @@ def patient_add(request):
     if request.method == 'GET':
         return render(request, 'patient_add.pug')
     elif request.method == 'POST':
-        form = patient_addForm(request.POST) # Cria form a partir de dados enviados
+        # Cria form a partir de dados enviados
+        form = patient_addForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
             # Vê se caregiver está logado
@@ -74,45 +76,48 @@ def patient_add(request):
 
                 if 'patient' not in request.session:
                     request.session['patient'] = patient.id
-                
+
                 return redirect('users:patient_all')
-                
+
 
 # API Views
 def api_caregiver(request, caregiver_id):
+    # Base response
+    response_data = {
+        'result': 'SUCCESS',
+        'message': None,
+        'caregiver': None
+    }
+
     caregiver = get_object_or_404(Caregiver, id=caregiver_id)
-    response_data = {}
-    response_data['result'] = [caregiver.to_dict()]
+    response_data['caregiver'] = caregiver.to_dict()
     return JsonResponse(response_data)
 
 def api_caregiver_patients(request, caregiver_id):
+    # Base response
+    response_data = {
+        'result': 'SUCCESS',
+        'message': None,
+        'patients': []
+    }
+
     caregiver = get_object_or_404(Caregiver, id=caregiver_id)
-    response_data = {}
-    response_data['result'] = []
+
     for patient in caregiver.patient_set.all():
-        response_data['result'].append(patient.to_dict())
+        response_data['patients'].append(patient.to_dict())
+
     return JsonResponse(response_data)
 
 def api_patient(request, patient_id):
+    # Base response
+    response_data = {
+        'result': 'SUCCESS',
+        'message': None,
+        'patient': None
+    }
+
     patient = get_object_or_404(Patient, id=patient_id)
-    response_data = {}
     response_data['result'] = [patient.to_dict()]
+
     return JsonResponse(response_data)
 
-def api_patient_meds(request, patient_id):
-    patient = get_object_or_404(Patient, id=patient_id)
-    response_data = {}
-    response_data['result'] = []
-    for m in patient.medication_set.all():
-        response_data['result'].append(m.to_dict())
-    return JsonResponse(response_data)
-
-def api_patient_foods(request, patient_id):
-    patient = get_object_or_404(Patient, id=patient_id)
-    response_data = {}
-    response_data['result'] = []
-    for m in patient.nutrition_set.all():
-        response_data['result'].append(m.to_dict())
-    return JsonResponse(response_data)
-
-    
